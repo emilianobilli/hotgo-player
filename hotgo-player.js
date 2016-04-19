@@ -10,11 +10,19 @@
 		video: {
 			    primary: {url: , type:},
 			    low_quality:  {url: , type:, label: },
+			    medium_quality: {url: , type:, label: },
 			    high_quality: {url: , type:, label: },	
 		       },
 		image:,
 		width:,
 		aspectratio:
+		tracks: [
+		    { file: '',
+		      label: '',
+		      kind: '',
+		    },
+		]
+		captions: {},
 	      }
  */
 
@@ -40,6 +48,13 @@ var jw_player_configure = function(config) {
     if ('width' in config) {
 	player_config['width'] = config.width;
     }
+    if ('tracks' in config) {
+	player_config['tracks'] = config.tracks;
+    }
+    if ('captions' in config) {
+	player_config['captions'] = config.captions;
+    }
+	
     return player_config;
 }
 
@@ -65,9 +80,15 @@ var low_quality_first = function(config) {
     player_config = jw_player_configure(config);
     player_config['sources'] = [{file: config.video.low_quality.url,
 	    		        type: config.video.low_quality.type,
+				label: config.video.low_quality.label,
 	                        'default': 'true' },
+				{file: config.video.medium_quality.url,
+	    		        type: config.video.medium_quality.type,
+				label: config.video.medium_quality.label,
+	                        'default': 'false' },
 		               {file: config.video.high_quality.url,
 	    			type: config.video.high_quality.type,
+				label: config.video.high_quality.label,
 	    			'default': 'false' }
 	    		      ];
     return player_config;
@@ -79,9 +100,15 @@ var high_quality_first = function(config) {
     player_config = jw_player_configure(config);
     player_config['sources'] = [{file: config.video.low_quality.url,
 	    		        type: config.video.low_quality.type,
+				label: config.video.low_quality.label,
+	                        'default': 'false' },
+				{file: config.video.medium_quality.url,
+	    		        type: config.video.medium_quality.type,
+				label: config.video.medium_quality.label,
 	                        'default': 'false' },
 		               {file: config.video.high_quality.url,
 	    			type: config.video.high_quality.type,
+				label: config.video.high_quality.label,
 	    			'default': 'true' }
 	    		      ];
     return player_config;
@@ -118,9 +145,11 @@ var HotgoPlayer   = function(element, config)
 	jw_player.once('setupError', function(error) {
 	    console.log(error);
 	    if (mobile) {
+		console.log(config);
 		jw_player.setup(low_quality_first(config));
 	    }
 	    else {
+		console.log(config);
 		jw_player.setup(high_quality_first(config));
 	    }
 	});
@@ -131,6 +160,7 @@ var HotgoPlayer   = function(element, config)
 		jw_player.load(low_quality_first(config));    
 	    }
 	    else {
+		console.log(config);
 		jw_player.load(high_quality_first(config));
 	    }
 	    jw_player.play();
