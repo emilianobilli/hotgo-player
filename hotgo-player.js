@@ -26,7 +26,7 @@
 	      }
  */
 
-var player_version = 'HotGo Player v0.1-1 @2016';
+var player_version = 'HotGo Player v0.1 @2016';
 
 var jw_player_configure = function(config) {
 
@@ -34,6 +34,7 @@ var jw_player_configure = function(config) {
 
     player_config = {
 	abouttext: player_version,
+	aboutlink: 'www.hotgo.tv',
 	primary: 'html5',
     }
     if ('title' in config) {
