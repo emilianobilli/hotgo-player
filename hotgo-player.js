@@ -55,6 +55,9 @@ var jw_player_configure = function(config) {
     if ('captions' in config) {
 	player_config['captions'] = config.captions;
     }
+    if ('skin' in config) {
+	player_config['skin'] = config.skin;
+    }
 	
     return player_config;
 }
