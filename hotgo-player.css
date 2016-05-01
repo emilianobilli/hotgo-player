@@ -1,9 +1,7 @@
 
 /* Player Div Container */
 
-
-
-.tpPlayer {
+.hgPlayer {
     max-width: 944px;
     height: auto;
     margin: 0 auto;
@@ -11,7 +9,7 @@
     
 }
 
-#myElement{
+#hgPlayerElement {
     width:100%;
     height:auto;
     border: 1px solid rgb(60,60,60);
@@ -21,7 +19,9 @@
 
 /* Only for presentation, do not copy these styles */
 
+/*
 body{
     background: #000 url(http://www.hotgo.tv/sites/all/themes/hotgo/images/categorias-bg.png) repeat-x;
     color: #fff;
 }
+*/
