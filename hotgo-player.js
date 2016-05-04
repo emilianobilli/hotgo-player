@@ -34,7 +34,7 @@ var jw_player_configure = function(config) {
 
     player_config = {
 	abouttext: player_version,
-	aboutlink: 'www.hotgo.tv',
+	aboutlink: 'http://www.hotgo.tv',
 	primary: 'html5',
     }
     if ('title' in config) {
@@ -54,6 +54,9 @@ var jw_player_configure = function(config) {
     }
     if ('captions' in config) {
 	player_config['captions'] = config.captions;
+    }
+    if ('autostart' in config) {
+	player_config['autostart'] = config.autostart;
     }
     if ('skin' in config) {
 	player_config['skin'] = config.skin;
