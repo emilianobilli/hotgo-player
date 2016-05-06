@@ -61,7 +61,6 @@ var jw_player_configure = function(config) {
     if ('skin' in config) {
 	player_config['skin'] = config.skin;
     }
-	
     return player_config;
 }
 
@@ -123,22 +122,22 @@ var high_quality_first = function(config) {
 }
 
 
-var HotgoPlayer   = function(element, config)
+var HotgoPlayer   = function(element, config, onReady)
 {
     var md     = new MobileDetect(window.navigator.userAgent);
     jw_player  = jwplayer(element);
     var mobile;
     
-
     if (md.mobile() || md.phone() || md.tablet())
     {
+	config.meta.device = "Mobile";
 	mobile = true;
     }
     else
     {
+	config.meta.device = "Desktop";
 	mobile = false;
     }
-
     
     this.player_config = primary(config);
     
@@ -147,30 +146,41 @@ var HotgoPlayer   = function(element, config)
 	/*
 	 * Load the Jw Player Setup
 	 */
+
 	jw_player.setup(this.player_config);
-	
+
 	jw_player.once('setupError', function(error) {
-	    console.log(error);
 	    if (mobile) {
-		console.log(config);
 		jw_player.setup(low_quality_first(config));
 	    }
 	    else {
-		console.log(config);
 		jw_player.setup(high_quality_first(config));
+	    }
+	    if (onReady) {
+		jw_player.onReady(function() {
+		    onReady(jw_player,config.meta);
+		});
 	    }
 	});
 
 	jw_player.once('error', function(error) {
-	    console.log(error);
 	    if (mobile) {
-		jw_player.load(low_quality_first(config));    
+		jw_player.load(low_quality_first(config));
 	    }
 	    else {
-		console.log(config);
 		jw_player.load(high_quality_first(config));
 	    }
 	    jw_player.play();
+	    if (onReady) {
+		jw_player.onReady(function() {
+		    onReady(jw_player,config.meta);
+		});
+	    }
 	});
+	if (onReady) {
+	    jw_player.onReady(function() {
+		onReady(jw_player,config.meta);
+	    });
+	}
     }
 }
