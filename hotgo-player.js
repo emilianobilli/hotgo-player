@@ -156,11 +156,12 @@ var HotgoPlayer   = function(element, config, onReady)
 	    else {
 		jw_player.setup(high_quality_first(config));
 	    }
-	    if (onReady) {
-		jw_player.onReady(function() {
+	    jw_player.onReady(function() {
+		jw_player.seek(0);
+		if (onReady) {
 		    onReady(jw_player,config.meta);
-		});
-	    }
+		}	
+	    });
 	});
 
 	jw_player.once('error', function(error) {
